@@ -18,10 +18,7 @@
             userPick = 'scissors';
             check(userPick);
         ">Scissors</button>
-        <p onclick="
-            alert(` Wins : ${score.Wins} \n Losses : ${score.Losses} \n Ties : ${score.Ties}`)
-        
-        ">Score: </p>
+        <p class="js-pick-something" >Pick something...</p>
         <p class="js-wins">Wins: 0</p>
         <p class="js-losses">Losses: 0</p>
         <p class="js-ties">Ties: 0</p>
@@ -101,6 +98,7 @@
 
                 // alert(` ${result.toUpperCase()} \n Your Pick: ${userPick} \n Computer Pick: ${computerGuess}`);
                 updateScore(result);
+                displayMatchResult(userPick, computerGuess, result);
                 displayScores();
                 return result;
             }
@@ -128,16 +126,22 @@
             }
 
             // Display Scores on page
-            function displayScores(){
+            function displayScores(userPick, computerGuess, result){
                 const winElem =  document.querySelector(".js-wins");
                 winElem.innerText = `Wins: ${score.Wins}` 
                 
                 const lossElem =  document.querySelector(".js-losses");
-                lossElem.innerText = `Wins: ${score.Losses}` 
+                lossElem.innerText = `Losses: ${score.Losses}` 
                
                 const tieElem =  document.querySelector(".js-ties");
-                tieElem.innerText = `Wins: ${score.Ties}` 
+                tieElem.innerText = `Ties: ${score.Ties}` 
 
+            }
+
+            // Display match result
+            function displayMatchResult(userPick, computerGuess, result){
+                const pickSomethingElem = document.querySelector('.js-pick-something');
+                pickSomethingElem.innerText = `${result} \n You Picked: ${userPick} \n Computer Picked: ${computerGuess}`;
             }
 
             displayScores();
