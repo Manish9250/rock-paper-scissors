@@ -2,22 +2,59 @@
 <html>
     <head>
         <title>Rock, Paper & Scissors</title>
-        
+        <style>
+            body{
+                background-color: rgb(25, 25, 25);
+                color: white;
+                font-family: Arial;
+            }
+            h1{
+                font-size: 30px;
+            }
+            .emojies{
+                height: 30px;
+                width: 30px;
+            }
+            .move-button{
+                height: 80px;
+                width: 80px;
+                background-color: rgb(25, 25, 25);
+                padding: 10px;
+                border-radius: 40px;
+                border: 3px white solid;
+                margin-right: 15px;
+                cursor: pointer;
+
+            }
+            .green-border{
+                border-color: green;
+            }
+            .red-border{
+                border-color: red;
+            }
+            .blue-border{
+                border-color: blue;
+            }
+            .white-border{
+                border-color: white;
+            }
+
+        </style>
     </head>
     <body>
         <h1>Rock, Paper & Scissors</h1>
-        <button onclick="
+        <button class="move-button js-rock-button" onclick="
             userPick = 'rock';
             check(userPick);
-        ">Rock</button>
-        <button onclick="
+        "><img class="emojies" src="rock-emoji.png"></button>
+        <button class="move-button js-paper-button" onclick="
             userPick = 'paper';
             check(userPick);
-        ">Paper</button>
-        <button onclick="
+        "><img src="paper-emoji.png" class="emojies"></button>
+        <button class="move-button js-scissors-button" onclick="
             userPick = 'scissors';
             check(userPick);
-        ">Scissors</button>
+        "><img src="scissors-emoji.png" class="emojies"></button>
         <p class="js-pick-something" >Pick something...</p>
         <p class="js-wins">Wins: 0</p>
         <p class="js-losses">Losses: 0</p>
@@ -100,6 +137,7 @@
                 updateScore(result);
                 displayMatchResult(userPick, computerGuess, result);
                 displayScores();
+                changeButtonColor(userPick, computerGuess, result);
                 return result;
             }
 
@@ -142,6 +180,48 @@
             function displayMatchResult(userPick, computerGuess, result){
                 const pickSomethingElem = document.querySelector('.js-pick-something');
                 pickSomethingElem.innerText = `${result} \n You Picked: ${userPick} \n Computer Picked: ${computerGuess}`;
+            }
+
+            // Change Button Color
+            function changeButtonColor(userPick, computerGuess, result){
+                
+                const userbuttonElem = document.querySelector(`.js-${userPick}-button`)
+                const computerGuessButtonElem = document.querySelector(`.js-${computerGuess}-button`);
+
+                resetBorderColor();
+
+
+                if (result === 'win'){
+                    userbuttonElem.classList.add('green-border');
+                    computerGuessButtonElem.classList.add('red-border');
+                } else if(result === 'loss'){
+                    userbuttonElem.classList.add('red-border');
+                    computerGuessButtonElem.classList.add('green-border');
+                } else{
+                    computerGuessButtonElem.classList.add('blue-border');
+                }              
+                
+
+            }
+            // Buttons border color reset funtion
+            function resetBorderColor(){
+                const rockButtonElem = document.querySelector('.js-rock-button');
+                const paperButtonElem = document.querySelector('.js-paper-button');
+                const scissorsButtonElem = document.querySelector('.js-scissors-button');
+
+                rockButtonElem.classList.remove('red-border');
+                rockButtonElem.classList.remove('blue-border');
+                rockButtonElem.classList.remove('green-border');
+
+                paperButtonElem.classList.remove('red-border');
+                paperButtonElem.classList.remove('blue-border');
+                paperButtonElem.classList.remove('green-border');
+
+                scissorsButtonElem.classList.remove('red-border');
+                scissorsButtonElem.classList.remove('blue-border');
+                scissorsButtonElem.classList.remove('green-border');
+
+
             }
 
             displayScores();
